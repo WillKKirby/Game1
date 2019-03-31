@@ -31,7 +31,7 @@ class Player(pygame.sprite.Sprite):
         self.platform = platformGroup
         self.platform2 = floorGroup
         self.gravCount = 0
-        self.gravCurve = [3.4113999999999995, 3.019000000000002, 2.626599999999998, 2.2341999999999995, 1.8417999999999992, 1.4494000000000042, 1.056999999999995, 0.6646000000000072, 0.27219999999999445, -0.12020000000000053, -0.5125999999999991, -0.9050000000000082, -1.2973999999999961, -1.6898000000000053, -2.082199999999993, -2.4746000000000095, -2.8670000000000044, -3.2594000000000065, -3.6517999999999944, -4.044200000000004]
+        self.gravCurve = [1.7547500000000005, 1.656649999999999, 1.5585500000000003, 1.4604499999999998, 1.362350000000001, 1.264249999999997, 1.1661500000000036, 1.0680499999999977, 0.9699499999999972, 0.871850000000002, 0.7737499999999997, 0.6756500000000045, 0.5775499999999951, 0.47945000000000704, 0.38134999999999764, 0.28324999999999534, 0.1851500000000037, 0.08704999999999785, -0.01104999999999734, -0.10915000000000319, -0.20725000000000193, -0.3053500000000007, -0.403450000000003, -0.5015500000000017, -0.599650000000004, -0.6977499999999992, -0.7958499999999944, -0.8939500000000038, -0.9920500000000061, -1.0901500000000084, -1.1882500000000036, -1.2863500000000059, -1.3844500000000082, -1.482549999999975, -1.5806500000000128, -1.678750000000008, -1.776849999999996, -1.8749499999999983, -1.9730500000000006]
         playerGroup.add(self)
 
     def update(self):
@@ -47,7 +47,7 @@ class PlatformBlock(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image,[30,(30*height)])
         self.rect = self.image.get_rect()
         self.rect.topleft = [x,y-(30*height)]
-        self.x_change = 1
+        self.x_change = 1.5
         self.y_change = 0
         self.platform = playerGroup
         platformGroup.add(self)
@@ -117,6 +117,8 @@ def main():
     run = True
     jump = False
     
+    clock = pygame.time.Clock()
+    fps = 120
     
     makeFloor() # This makes the floor ... derrrr
 
@@ -145,7 +147,7 @@ def main():
         
         # Jumpy Code
         if jump == True:
-            player.rect.y -= player.gravCurve[player.gravCount]
+            player.rect.y -= player.gravCurve[player.gravCount]*10
             player.gravCount += 1
             if player.gravCount == len(player.gravCurve):
                 player.gravCount = 0
@@ -169,7 +171,7 @@ def main():
         playerGroup.update()
         pygame.display.update()
 
-
+        clock.tick(fps)
 
     gameDisplay.close()
 
