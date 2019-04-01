@@ -54,6 +54,7 @@ class PlatformBlock(pygame.sprite.Sprite):
         if self.rect.x > 800 or self.rect.x == 0:
             self.kill()
 
+        self.x_change = 1
         self.rect.x -= self.x_change
         block_hit_list = pygame.sprite.spritecollide(self,self.platform,False)
         for Q in block_hit_list:
@@ -63,7 +64,7 @@ class PlatformBlock(pygame.sprite.Sprite):
             else:
                 self.rect.left = Q.rect.right
 
-        self.y_change = 1 # THIS IS STILL BROKEN - YOU CAN'T LAND ON TOP OF THEM 
+        self.y_change = 0 # THIS IS STILL BROKEN - YOU CAN'T LAND ON TOP OF THEM 
         self.rect.y -= self.y_change
         block_hit_list = pygame.sprite.spritecollide(self,self.platform,False)
         for Q in block_hit_list:
@@ -71,7 +72,7 @@ class PlatformBlock(pygame.sprite.Sprite):
                 self.rect.bottom = Q.rect.top
             else:
                 self.rect.top = Q.rect.bottom
-        self.rect.y += 1
+        self.rect.y = -1
         
 
 class floorBlock(pygame.sprite.Sprite): # Floor 
